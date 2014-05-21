@@ -3,3 +3,5 @@
 帳號登入/註冊頁:  [user.html](http://friendlydigitech.github.io/promisewall/user.html)
 
 帳號資訊頁:  [profile.html](http://friendlydigitech.github.io/promisewall/profile.html)
+
+新增資料頁:  [post.html](http://friendlydigitech.github.io/promisewall/post.html)
