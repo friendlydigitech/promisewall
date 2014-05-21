@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link href="stylesheets/styles.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+	<title>User</title>
+</head>
+<body>
+
+<div id="inputresults"></div>
+
+<div class="" id="loginModal">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3>Have an Account?</h3>
+	</div>
+	<div class="modal-body">
+		<div class="well">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+				<li><a href="#create" data-toggle="tab">Create Account</a></li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane active in" id="login">
+					<form class="form-horizontal" action='#'>
+						<fieldset>
+							<div id="legend">
+								<legend class="">Login</legend>
+							</div>    
+							<div class="control-group">
+								<!-- Username -->
+								<label class="control-label"  for="username">Username</label>
+								<div class="controls">
+									<input type="text" id="login_username" name="login_username" placeholder="" class="input-xlarge">
+								</div>
+							</div>
+							
+							<div class="control-group">
+								<!-- Password-->
+								<label class="control-label" for="password">Password</label>
+								<div class="controls">
+									<input type="password" id="login_password" name="login_password" placeholder="" class="input-xlarge">
+								</div>
+							</div>
+							
+							
+							<div class="control-group">
+								<!-- Button -->
+								<div class="controls">
+									<button class="btn btn-success" id="loginButton">Login</button>
+								</div>
+							</div>
+						</fieldset>
+					</form>                
+				</div>
+				<div class="tab-pane fade" id="create">
+					<form id="tab">
+						<label>Username</label>
+						<input type="text" value="" class="input-xlarge" id="username">
+						<label>Password</label>
+						<input type="password" value="" class="input-xlarge" id="password">
+						<label>Email</label>
+						<input type="text" value="" class="input-xlarge" id="email">
+						</textarea>
+						
+						<div>
+							<button class="btn btn-primary" id="signupButton">Create Account</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <script src="javascripts/bootstrap-transition.js"></script>
+    <script src="javascripts/bootstrap-alert.js"></script>
+    <script src="javascripts/bootstrap-modal.js"></script>
+    <script src="javascripts/bootstrap-dropdown.js"></script>
+    <script src="javascripts/bootstrap-scrollspy.js"></script>
+    <script src="javascripts/bootstrap-tab.js"></script>
+    <script src="javascripts/bootstrap-tooltip.js"></script>
+    <script src="javascripts/bootstrap-popover.js"></script>
+    <script src="javascripts/bootstrap-button.js"></script>
+    <script src="javascripts/bootstrap-collapse.js"></script>
+    <script src="javascripts/bootstrap-carousel.js"></script>
+    <script src="javascripts/bootstrap-typeahead.js"></script>
+
+    <script type="text/javascript">
+ 			Parse.initialize("Y3hVWxIZt8ONbc5ChxiGERkvUAu40FzN9z8Kuj1j", "i2b1fioEWPxGLmFUlLFl6MGoFVJN9XIOzb4RmOUj");
+
+	    var loginButton = document.getElementById('loginButton');
+	    loginButton.onclick = handleloginButtonClick;
+
+	    var signupButton = document.getElementById('signupButton');
+	    signupButton.onclick = handlesignupButtonClick;
+
+ 			var currentUser = Parse.User.current();
+			if (currentUser) {
+	      // do stuff with the user
+	      $( "#inputresults" ).empty();
+	      $( "#inputresults" ).append("User has Logined!<br />");
+	      $( "#inputresults" ).append(currentUser.id + ' - ' + 
+	                        "<a href=\"profile.html\" >" + currentUser.getUsername() +"</a> " +
+	                             + ' - ' +
+	                        currentUser.getEmail() + ' - ' + 
+	                        currentUser.get("phone") + ' - ' +  
+	                        currentUser.updatedAt + ' <br /> ');
+	  	} else {
+	  		$( "#inputresults" ).empty();
+	      $( "#inputresults" ).append("<a href=\"user.html\" >Login or Sign Up</a>");
+	  	}
+
+	  	function handleloginButtonClick() {
+	      var username = document.getElementById('login_username').value;
+	      var password = document.getElementById('login_password').value;
+	 
+	      Parse.User.logIn(username, password, {
+	        success: function(user) {
+	          // Do stuff after successful login.
+	          $( "#inputresults" ).empty();
+	          $( "#inputresults" ).append("User Logined!<br />");
+	          $( "#inputresults" ).append(user.id + ' - ' + 
+	          									"<a href=\"profile.html\" >" + user.getUsername() +"</a>" +
+	                             + ' - ' +
+	                            user.getEmail() + ' - ' + 
+	                            user.get("phone") + ' - ' +  
+	                            user.createdAt + ' <br /> ');
+
+	        },
+	        error: function(user, error) {
+	          // The login failed. Check error to see why.
+	          $( "#inputresults" ).empty();
+	          $( "#inputresults" ).append("Error: " + error.code + " " + error.message);
+	        }
+	      });
+
+	    }
+
+
+	    function handlesignupButtonClick() {
+	      var username = document.getElementById('username').value;
+	      var password = document.getElementById('password').value;
+	      var email = document.getElementById('email').value;
+	      //var phone = document.getElementById('phone').value;
+
+	      if (username == "") { 
+	      		$( "#inputresults" ).empty();
+	          $( "#inputresults" ).append("Username is empty!"); }
+	// alert("Length of username is :" + username.length);
+	// alert("Length of password is :" + password.length);      
+
+	      var user = new Parse.User();
+	      user.set("username", username);
+	      user.set("password", password);
+	      user.set("email", email);
+	       
+	      // other fields can be set just like with Parse.Object
+	      //user.set("phone", phone);
+	       
+	      user.signUp(null, {
+	        success: function(user) {
+	          // Hooray! Let them use the app now.
+	          $( "#inputresults" ).empty();
+	          $( "#inputresults" ).append("User Created!<br />");
+	          $( "#inputresults" ).append(user.id + ' - ' + 
+	                            user.getUsername() + ' - ' +
+	                            user.getEmail() + ' - ' + 
+	                            user.get("phone") + ' - ' +  
+	                            user.createdAt + ' <br /> ');
+	        },
+	        error: function(user, error) {
+	          // Show the error message somewhere and let the user try again.
+	          // alert("Error: " + error.code + " " + error.message);
+	          if (error.code === Parse.Error.EMAIL_TAKEN) {
+	            $( "#inputresults" ).empty();
+	          	$( "#inputresults" ).append("Email Duplicated Error: " + error.code + " " + error.message);
+	          // } else if (error.code === Parse.Error.INVALID_EMAIL_ADDRESS) {
+	          } else if (error.code === Parse.Error.EMAIL_MISSING) {
+	            $( "#inputresults" ).empty();
+	          	$( "#inputresults" ).append("Email Empty Error: " + error.code + " " + error.message);
+	          } else if (error.code === Parse.Error.USERNAME_MISSING) {
+	            $( "#inputresults" ).empty();
+	          	$( "#inputresults" ).append("Username Empty Error: " + error.code + " " + error.message);
+	          } else if (error.code === Parse.Error.USERNAME_TAKEN) {
+	            $( "#inputresults" ).empty();
+	          	$( "#inputresults" ).append("User Duplicated Error: " + error.code + " " + error.message);
+	          } else if (error.code === Parse.Error.PASSWORD_MISSING) {
+	            $( "#inputresults" ).empty();
+	          	$( "#inputresults" ).append("Password Empty Error: " + error.code + " " + error.message);
+	          } else if (error.code === Parse.Error.CONNECTION_FAILED) {
+	            $( "#inputresults" ).empty();
+	          	$( "#inputresults" ).append("Uh oh, we couldn't even connect to the Parse Cloud!");
+	          } else {
+	            $( "#inputresults" ).empty();
+	          	$( "#inputresults" ).append("Error: " + error.code + " " + error.message);
+	          }
+
+	        }
+	      });
+
+	    }
+
+ 		</script>
+
+</body>
+</html>

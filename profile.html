@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link href="stylesheets/styles.css" rel="stylesheet" type="text/css" />
+	<title>User Porfile</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+</head>
+<body>
+		<div id="loginresults"></div>
+
+		<div class="row">
+			<div class="span2"></div>
+			<div class="span8 well" >
+			    <ul class="nav nav-tabs">
+			      <li class="active"><a href="#home" data-toggle="tab">Profile</a></li>
+			      <li><a href="#profile" data-toggle="tab">Password</a></li>
+			    </ul>
+			    <div id="myTabContent" class="tab-content">
+			      <div class="tab-pane active in" id="home">
+			        <form id="tab" action="#">
+			        		<div class="row">
+            				<div class="span3">
+											<img id="userimg" src="" alt="" class="img-rounded img-responsive" />
+            				</div>
+            				<div class="span5">
+					            <label>Username</label>
+					            <input type="text" id="username" class="input-xlarge">
+					            <label>First Name</label>
+					            <input type="text" id="firstname" class="input-xlarge">
+					            <label>Last Name</label>
+					            <input type="text" id="lastname" class="input-xlarge">
+					            <label>Email</label>
+					            <input type="text" id="email" class="input-xlarge">
+					            <label>Phone</label>
+					            <input type="text" id="phone" class="input-xlarge">
+					            <label>Address</label>
+					            <textarea id="address" rows="3" class="input-xlarge">
+					            </textarea>
+					            <label>Time Zone</label>
+					            <select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
+					              <option value="-12.0">(GMT -12:00) Eniwetok, Kwajalein</option>
+					              <option value="-11.0">(GMT -11:00) Midway Island, Samoa</option>
+					              <option value="-10.0">(GMT -10:00) Hawaii</option>
+					              <option value="-9.0">(GMT -9:00) Alaska</option>
+					              <option value="-8.0">(GMT -8:00) Pacific Time (US & Canada)</option>
+					              <option value="-7.0">(GMT -7:00) Mountain Time (US & Canada)</option>
+					              <option value="-6.0">(GMT -6:00) Central Time (US & Canada), Mexico City</option>
+					              <option value="-5.0">(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima</option>
+					              <option value="-4.0">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+					              <option value="-3.5">(GMT -3:30) Newfoundland</option>
+					              <option value="-3.0">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
+					              <option value="-2.0">(GMT -2:00) Mid-Atlantic</option>
+					              <option value="-1.0">(GMT -1:00 hour) Azores, Cape Verde Islands</option>
+					              <option value="0.0">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+					              <option value="1.0">(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris</option>
+					              <option value="2.0">(GMT +2:00) Kaliningrad, South Africa</option>
+					              <option value="3.0">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+					              <option value="3.5">(GMT +3:30) Tehran</option>
+					              <option value="4.0">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+					              <option value="4.5">(GMT +4:30) Kabul</option>
+					              <option value="5.0">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+					              <option value="5.5">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+					              <option value="5.75">(GMT +5:45) Kathmandu</option>
+					              <option value="6.0">(GMT +6:00) Almaty, Dhaka, Colombo</option>
+					              <option value="7.0">(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
+					              <option selected="selected" value="8.0">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+					              <option value="9.0">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+					              <option value="9.5">(GMT +9:30) Adelaide, Darwin</option>
+					              <option value="10.0">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+					              <option value="11.0">(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
+					              <option value="12.0">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+					            </select>
+					            <div>
+			        	    		<button id="updateprofileButton" class="btn btn-primary">Update</button>
+			        				</div>
+			            	</div>
+			            </div>
+			        </form>
+			      </div>
+			      <div class="tab-pane fade" id="profile">
+			    	<form id="tab2" action="#">
+			        	<label>New Password</label>
+			        	<input type="password" id="password" placeholder="******" class="input-xlarge">
+			        	<div>
+			        	    <button id="updatepasswordButton" class="btn btn-primary">Update</button>
+			        	</div>
+			      </form>
+			    </div>
+			</div>
+			<div class="span2"></div>
+		</div>
+
+    <script src="javascripts/bootstrap-transition.js"></script>
+    <script src="javascripts/bootstrap-alert.js"></script>
+    <script src="javascripts/bootstrap-modal.js"></script>
+    <script src="javascripts/bootstrap-dropdown.js"></script>
+    <script src="javascripts/bootstrap-scrollspy.js"></script>
+    <script src="javascripts/bootstrap-tab.js"></script>
+    <script src="javascripts/bootstrap-tooltip.js"></script>
+    <script src="javascripts/bootstrap-popover.js"></script>
+    <script src="javascripts/bootstrap-button.js"></script>
+    <script src="javascripts/bootstrap-collapse.js"></script>
+    <script src="javascripts/bootstrap-carousel.js"></script>
+    <script src="javascripts/bootstrap-typeahead.js"></script>
+
+    <script type="text/javascript">
+    	Parse.initialize("Y3hVWxIZt8ONbc5ChxiGERkvUAu40FzN9z8Kuj1j", "i2b1fioEWPxGLmFUlLFl6MGoFVJN9XIOzb4RmOUj");
+
+	    var currentUser = Parse.User.current();
+	    if (currentUser) {
+	      // do stuff with the user
+	      $( "#loginresults" ).empty();
+        $( "#loginresults" ).append("User has Logined!<br />");
+        $( "#loginresults" ).append(currentUser.id + ' - ' + 
+                          currentUser.getUsername() + ' - ' +
+                          currentUser.getEmail() + ' - ' + 
+                          currentUser.get("phone") + ' - ' +  
+                          currentUser.updatedAt + ' <br /> ');
+
+        document.getElementById('username').value = currentUser.getUsername();
+        document.getElementById('firstname').value = currentUser.get("firstname");
+        document.getElementById('lastname').value = currentUser.get("lastname");
+        document.getElementById('email').value = currentUser.getEmail();
+        document.getElementById('phone').value = currentUser.get("phone");
+        document.getElementById('address').value = currentUser.get("address");
+
+        var user = Parse.User.current();
+        user.fetch();
+        var profileImg = user.get("icon");
+        $('#userimg')[0].src = profileImg.url();
+	    } else {
+	        // show the signup or login page
+	        window.location.href = "user.html";
+	    }
+    </script>
+    <script type="text/javascript">
+    	Parse.initialize("Y3hVWxIZt8ONbc5ChxiGERkvUAu40FzN9z8Kuj1j", "i2b1fioEWPxGLmFUlLFl6MGoFVJN9XIOzb4RmOUj");
+
+    	var updateprofileButton = document.getElementById('updateprofileButton');
+    	updateprofileButton.onclick = handleupdateprofileButtonClick;
+    	var updatepasswordButton = document.getElementById('updatepasswordButton');
+    	updatepasswordButton.onclick = handleupdatepasswordButtonClick;
+
+
+			function handleupdateprofileButtonClick() {
+				var currentUser = Parse.User.current();
+	      var user = currentUser;
+
+				var username = document.getElementById('username').value;
+	      var firstname = document.getElementById('firstname').value;
+	      var lastname = document.getElementById('lastname').value;
+	      var email = document.getElementById('email').value;
+	      var phone = document.getElementById('phone').value;
+	      var address = document.getElementById('address').value;
+
+	      if (username == "") { alert("Username is empty!"); }  
+
+	      user.set("username", username);
+	      user.set("firstname", firstname);
+	      user.set("lastname", lastname);
+	      user.set("email", email);
+	      user.set("phone", phone);
+	      user.set("address", address);
+	       
+	       
+	      user.save(null, {
+            success: function(user) {
+              // This succeeds, since the user was authenticated on the device
+              $( "#loginresults" ).empty();
+              $( "#loginresults" ).append("User Updated!<br />");
+              $( "#loginresults" ).append(user.id + ' - ' + 
+                                user.getUsername() + ' - ' +
+                                user.get("firstname") + ' - ' +
+                                user.get("lastname") + ' - ' +
+                                user.getEmail() + ' - ' + 
+                                user.get("phone") + ' - ' +  
+                                user.get("address") + ' - ' +
+                                user.createdAt + ' <br /> ');
+            }
+          });
+			}    	
+
+			function handleupdatepasswordButtonClick() {
+				var currentUser = Parse.User.current();
+	      var user = currentUser;
+
+	      var password = document.getElementById('password').value;
+
+	      user.set("password", password);
+	       
+	       
+	      user.save(null, {
+            success: function(user) {
+              // This succeeds, since the user was authenticated on the device
+              $( "#loginresults" ).empty();
+              $( "#loginresults" ).append("User Password Updated!<br />");
+              $( "#loginresults" ).append(user.id + ' - ' + 
+                                user.getUsername() + ' - ' +
+                                user.get("firstname") + ' - ' +
+                                user.get("lastname") + ' - ' +
+                                user.getEmail() + ' - ' + 
+                                user.get("phone") + ' - ' +  
+                                user.get("address") + ' - ' +
+                                user.createdAt + ' <br /> ');
+            }
+          });
+			}    	
+    </script>
+	
+</body>
+</html>
