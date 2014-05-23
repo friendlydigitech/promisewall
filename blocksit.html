@@ -94,6 +94,10 @@ $(document).ready(function() {
 <div id="container">
 <!---->
 </div>
+
+	<hgroup>
+		<h4 id="getNext">More</h2> 
+	</hgroup>
 </section>
 
 <!-- Footer -->
@@ -104,6 +108,13 @@ $(document).ready(function() {
 
     <script type="text/javascript">
  			Parse.initialize("Y3hVWxIZt8ONbc5ChxiGERkvUAu40FzN9z8Kuj1j", "i2b1fioEWPxGLmFUlLFl6MGoFVJN9XIOzb4RmOUj");
+
+			page = 1;
+
+			// How much to show on a page
+			var displayLimit = 12;
+
+			is_end_flg = false;
 
 
  			var currentUser = Parse.User.current();
@@ -119,38 +130,69 @@ $(document).ready(function() {
 	  	}
 
 
-    	handle_query_messages_ButtonClick();
+		  display_query_messages((page-1)*displayLimit, displayLimit);
+			page++;
 
 
-	    function handle_query_messages_ButtonClick() {
-	      var Message = Parse.Object.extend("Message");
-	      var query = new Parse.Query(Message);
-	      query.limit(1000);
-	      query.descending("createdAt");
-	      query.include("creator");
-	      query.find({
-	        success: function(results) {
-	          $( "#results" ).text("Successfully retrieved " + results.length + " messages.");
-	          // Do something with the returned Parse.Object values
-	          $( "#resultcontents" ).empty();
-	          for (var i = 0; i < results.length; i++) {
-	            var object = results[i];
-	            var username = (typeof object.get('creator') === 'undefined') ? "Nobody" : object.get('creator').getUsername();
+			var nextButton = document.getElementById('getNext');
+		  nextButton.onclick = handlenextButtonClick;
 
-	            $( "#resultcontents" ).append(object.id + ' - ' + 
-	                            object.get('textcontent') + ' - ' +
-	                            username + ' - ' +
-	                            object.createdAt + ' <br /> ');
-	            $( "#container" ).append("<div class=\"grid\"> <strong>" + object.id + "</strong> <p>" + object.get('textcontent') + "<p/> <p>" + object.createdAt + "<div class=\"meta\">by " + username +"</div></div>");
-	          }
-	        },
-	        error: function(error) {
-	          alert("Error: " + error.code + " " + error.message);
-	        }
-	      });
+
+		  function handlenextButtonClick() {
+		  	display_query_messages((page-1)*displayLimit, displayLimit);
+		  	page++;
+		  }  
+
+
+			var currentUser = Parse.User.current();
+	    if (currentUser) {
+	      // do stuff with the user
+	      $( "#results" ).empty();
+	      $( "#results" ).append("User has Logined!<br />");
+	      $( "#results" ).append(currentUser.id + ' - ' + 
+	                        currentUser.getUsername() + ' - ' +
+	                        currentUser.getEmail() + ' - ' + 
+	                        currentUser.get("phone") + ' - ' +  
+	                        currentUser.updatedAt + ' <br /> ');
+
 	    }
 
- 		</script>
 
+		function display_query_messages(begin, amount) {
+			var Message = Parse.Object.extend("Message");
+	    var query = new Parse.Query(Message);
+	    query.skip(begin);
+	    query.limit(amount);
+	    query.descending("createdAt");
+	    query.include("creator");
+	    query.find({
+	      success: function(results) {
+	        //return results;
+	        // alert(results.length);
+
+					for (var i = 0; i < results.length; i++) {
+					  var object = results[i];
+					  var username = (typeof object.get('creator') === 'undefined') ? "Nobody" : object.get('creator').getUsername();
+
+					  $( "#results" ).append(object.id + ' - ' + 
+					                  object.get('textcontent') + ' - ' +
+					                  username + ' - ' +
+					                  object.createdAt + ' <br /> ');
+					  $( "#container" ).append("<div class=\"grid\"> <strong>" + object.id + "</strong> <p>" + object.get('textcontent') + "<p/> <p>" + object.createdAt + "<div class=\"meta\">by " + username +"</div></div>");
+					}
+
+					if ( results.length < displayLimit ) {
+	        	is_end_flg = true;
+	        	document.getElementById('getNext').style.visibility = 'hidden';
+	        }
+	      },
+	      error: function(error) {
+	        alert("Error: " + error.code + " " + error.message);
+	      }
+	    });
+
+		}
+
+ 		</script>
 </body>
 </html>

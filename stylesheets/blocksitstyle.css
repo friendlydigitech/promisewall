@@ -75,6 +75,10 @@ a:hover, a:active{
 	clear:both;
 }
 
+#section2{
+	width:100%;
+}
+
 /* wrapper css */
 #wrapper{
 	margin-top:70px;
@@ -97,6 +101,12 @@ a:hover, a:active{
 	text-shadow:1px 1px 0 #fff;
 	color:#888;
 	margin:5px 0;
+}
+
+#wrapper h4{
+	font-size:33px;
+	color:#FF6D99;
+	text-shadow:1px 1px 2px #A50031;
 }
 
 #container{
